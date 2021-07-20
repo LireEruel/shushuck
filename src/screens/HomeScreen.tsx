@@ -11,7 +11,7 @@ import {
 } from "react-native";
 
 const SHUSHUCK = require("../../assets/img/shushuck.png");
-
+import {COLORS} from "../styles/styles" 
 
 const Layout = {
   height: Dimensions.get("window").height,
@@ -47,6 +47,15 @@ const classes = StyleSheet.create({
     },
     button : {
         marginTop : Layout.height*0.05,
+        backgroundColor: COLORS.YELLOW.YELLOW,
+        paddingVertical: 10,
+        paddingHorizontal : 40,
+        borderRadius:10
+    },
+    buttonText : {
+        color: COLORS.WHITE.WHITE,
+        fontSize: 20,
+        fontWeight : 'bold'
     }
     
 })
@@ -64,9 +73,8 @@ const onPress = () => {
             <View style={classes.content}>
                 <Text style={classes.title}>나만의 밈을 만들어보세요</Text>
                 <TextInput style={classes.input}
-                    placeholder="슈슉"
+                    placeholder="ex) 슈슉"
                     onChangeText={text => setText(text)}
-                    defaultValue={text}
                 />
             </View>
             <Image
@@ -74,7 +82,7 @@ const onPress = () => {
                 style={classes.image}
             />
             <TouchableOpacity style={classes.button} onPress={onPress}>
-                <Text>Go!</Text>
+                <Text style={classes.buttonText}>Go!</Text>
             </TouchableOpacity>
         </View>
     )

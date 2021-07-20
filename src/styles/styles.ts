@@ -11,7 +11,8 @@ export const COLORS = {
     FIRE_ENGINE_RED: "#D81120",
   },
   YELLOW: {
-    YELLOW: "#ffd500",
+    REMON: "#ffd500",
+    YELLOW: "#ffc400"
   },
   BLUE: {
     SKYBLUE: "#0090ff",
