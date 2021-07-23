@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Alert } from "react-native";
 import {
   Dimensions,
   View,
@@ -9,6 +10,7 @@ import {
   TextInput,
   TouchableOpacity
 } from "react-native";
+import { Snackbar } from 'react-native-paper';
 
 const SHUSHUCK = require("../../assets/img/shushuck.png");
 import {COLORS} from "../styles/styles" 
@@ -62,12 +64,55 @@ const classes = StyleSheet.create({
 
 
 const HomeScreen = () => {
-    const [text,setText] = useState('슈슉');
+    const [text,setText] = useState('');
+    const [visible, setVisible] = useState(false);
+    const [resultText, setResultText] = useState('');
+    const onPress = () => {
+            if(text == '')
+            {
+               setVisible(true)
+            }
+            else{
+                    makeText();
+            }
+        
+        }   
+    const makeText = () => {
+        const inputArray = text.split(''); // input을 스플릿하여 배열로 저장
+        const transArray = [];  // input가중치를 높이고 . , ' ' 를 추가한 배열
+        const resultArray = [];
+        const textLength = 50;
+        //슈슉이 input이라면 슈와 슉의 가중치를 높이기 위해 배열에 2번 넣음.
+
+        for(var i =0;i<3;i++)
+        {
+            for( var d=0; d<inputArray.length;d++)
+            {
+                transArray.push(inputArray[d])
+            }
+        }
+        transArray.push('.',',',' ');
+        resultArray.push(transArray[0]) // 첫번째 글자는 input의 첫번째 글자로
+        while(resultArray.length < textLength-1)
+        {
+            const index = Math.floor(Math.random() * (transArray.length -1) + 1) // 배열에서 랜덤으로 하나를 뽑는다.       
+            var before = resultArray[resultArray.length-1]
+             // ' ' 와 , 와 , . 는 반복되지 않도록 한다.
+            if(before == transArray[index] )
+            {
+                if(before == ' ' || ',' || '.')
+                {
+                    continue;
+                }
+            }
+            
+            resultArray.push(transArray[index])
+        }
+        resultArray.push
+        const resultText = resultArray.join("");
+        console.log(resultText);
+    } 
     
-const onPress = () => {
-        console.log(text);
-    }    
-  
     return(
         <View style={classes.container}>
             <View style={classes.content}>
@@ -84,6 +129,12 @@ const onPress = () => {
             <TouchableOpacity style={classes.button} onPress={onPress}>
                 <Text style={classes.buttonText}>Go!</Text>
             </TouchableOpacity>
+            <Snackbar
+                visible={visible}
+                onDismiss={() => setVisible(false)}
+                >
+                입력값이 없습니다.
+            </Snackbar>
         </View>
     )
 }
